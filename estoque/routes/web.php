@@ -15,11 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/contact', function () {
-    return "contact page";
+Route::get('/hi', function () {
+    return 'hi';
 });
 
-Route::get('/produtos', 'ProdutoController@lista');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/produtos', 'ProdutoController@lista');
+
+Route::get('/produtos/mostra/{id}', 'ProdutoController@mostra');
