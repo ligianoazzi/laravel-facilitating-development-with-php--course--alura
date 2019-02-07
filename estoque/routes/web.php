@@ -25,4 +25,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/produtos', 'ProdutoController@lista');
 
-Route::get('/produtos/mostra/{id}', 'ProdutoController@mostra');
+Route::get('/produtos/mostra/{id}', 'ProdutoController@mostra')->where('id', '[0-9]+');// if i don't put where clausule, can I have reoutes trouble
