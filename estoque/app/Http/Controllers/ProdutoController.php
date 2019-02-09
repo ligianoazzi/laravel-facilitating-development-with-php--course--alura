@@ -24,4 +24,37 @@ class ProdutoController extends Controller
 
     }
 
+    public function novo(){
+    	return view('formulario');
+    }
+
+	public function adiciona(){
+
+		$nome = Request::input('nome');
+		$quantidade = Request::input('quantidade');
+		$valor = Request::input('valor');
+		$descricao = Request::input('descricao');
+
+		try {
+
+			DB::insert('insert into produtos (nome, quantidade, valor, descricao) values (?, ?, ?, ?)', array($nome, $quantidade, $valor, $descricao));
+
+			//return redirect('/produtos')->withInput(Request::only('nome'));
+			return redirect()
+			->action('ProdutoController@lista')
+			->withInput(Request::only('nome'));
+
+		}catch (customException $e) {
+		 
+		 	echo $e->errorMessage();
+
+		}
+
+	}
+
+	public function getJson(){
+		$produtos = DB::select('select * from produtos');
+		return $produtos;
+	}
+
 }

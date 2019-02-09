@@ -3,9 +3,13 @@
 @section('conteudo')
 
 @if(empty($produtos))
-		<div>Não exists products </div>
+		<div>No exists products </div>
 
 @else
+
+@if(old('nome'))
+	<div class="alert alert-success"> Product <b>{{old('nome')}} </b> add. </div>
+@endif
 		<h1>Product List</h1>
 		<table class="table">
 			<tr>
@@ -31,6 +35,9 @@
 	@endforeach
 
 		</table>
+
+
+
 @endif
 
 @endsection
