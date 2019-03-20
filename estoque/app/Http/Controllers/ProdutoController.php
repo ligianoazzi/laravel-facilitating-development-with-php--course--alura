@@ -4,6 +4,11 @@ namespace estoque\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Request;
+use Validator;
+use estoque\Produto;
+use estoque\Http\Requests\ProdutoRequest;
+
+
 class ProdutoController extends Controller
 {
     public function lista(){
@@ -28,27 +33,10 @@ class ProdutoController extends Controller
     	return view('formulario');
     }
 
-	public function adiciona(){
+	public function adiciona(ProdutoRequest $request){
 
-		$nome = Request::input('nome');
-		$quantidade = Request::input('quantidade');
-		$valor = Request::input('valor');
-		$descricao = Request::input('descricao');
-
-		try {
-
-			DB::insert('insert into produtos (nome, quantidade, valor, descricao) values (?, ?, ?, ?)', array($nome, $quantidade, $valor, $descricao));
-
-			//return redirect('/produtos')->withInput(Request::only('nome'));
-			return redirect()
-			->action('ProdutoController@lista')
-			->withInput(Request::only('nome'));
-
-		}catch (customException $e) {
-		 
-		 	echo $e->errorMessage();
-
-		}
+		Produto::create($request->all());
+		return redirect('/produtos')->withInput();
 
 	}
 
